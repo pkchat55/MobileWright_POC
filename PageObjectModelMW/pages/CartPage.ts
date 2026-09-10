@@ -21,7 +21,8 @@ export class CartPage {
     }
 
     async emptyCart() {
-        while(await this.itemCount() > 0) {
+        const maxAttempts = 25;
+        for (let attempt = 0; attempt < maxAttempts && await this.itemCount() > 0; attempt++) {
             await this.removeButtons.first().tap();
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
