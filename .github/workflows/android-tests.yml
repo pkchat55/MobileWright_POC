@@ -7,6 +7,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  models: read
+
 jobs:
   test:
     name: Android emulator
@@ -33,6 +37,8 @@ jobs:
         run: npm ci
 
       - name: Run Android tests
+        id: android-tests
+        continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 35
@@ -40,7 +46,16 @@ jobs:
           arch: x86_64
           avd-name: ci-android-emulator
           emulator-options: -no-window -noaudio -no-boot-anim -gpu swiftshader_indirect
-          script: npm run test:android
+          script: |
+            set +e
+            npm run test:android 2>&1 | tee test-output.log
+            exit ${PIPESTATUS[0]}
+
+      - name: Generate AI failure dashboard
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run report:ai
 
       - name: Upload test report
         if: always()
@@ -49,3 +64,15 @@ jobs:
           name: mobilewright-report
           path: PageObjectModelMW/mobilewright-report
           if-no-files-found: ignore
+
+      - name: Upload AI dashboard
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-test-ai-dashboard
+          path: PageObjectModelMW/ai-dashboard
+          if-no-files-found: error
+
+      - name: Mark test failure
+        if: steps.android-tests.outcome == 'failure'
+        run: exit 1

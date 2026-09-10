@@ -5,6 +5,7 @@
   "scripts": {
     "test": "mobilewright test",
     "test:android": "mobilewright test tests/login.test.ts",
+    "report:ai": "node scripts/generate-ai-dashboard.mjs",
     "test:report": "mobilewright test --reporter html && mobilewright show-report"
   },
   "devDependencies": {
