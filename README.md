@@ -141,6 +141,14 @@ MOBILEWRIGHT_CLOUD=1 npm run test:cloud
 MOBILEWRIGHT_BROWSERSTACK=1 npm run test:browserstack
 ```
 
+<div align="center">
+
+<img src="assets/mobile-next-cloud-app.png" alt="MediShop app running on a real Google Pixel 10 via Mobile Next Cloud" width="320">
+
+**MediShop running on a real Google Pixel 10** — allocated, driven, and screenshotted live through **Mobile Next Cloud**, with zero device lab required.
+
+</div>
+
 ---
 
 ## 🧠 AI-Powered Failure Dashboard
