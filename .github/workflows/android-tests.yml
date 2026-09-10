@@ -49,7 +49,10 @@ jobs:
           script: |
             set +e
             npm run test:android 2>&1 | tee test-output.log
-            exit ${PIPESTATUS[0]}
+            test_exit_code=${PIPESTATUS[0]}
+            mkdir -p ai-dashboard
+            adb exec-out screencap -p > ai-dashboard/emulator-final-state.png || true
+            exit $test_exit_code
 
       - name: Generate AI failure dashboard
         if: always()
