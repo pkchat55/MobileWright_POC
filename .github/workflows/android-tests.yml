@@ -9,7 +9,6 @@ on:
 
 permissions:
   contents: read
-  models: read
 
 jobs:
   test:
@@ -58,7 +57,7 @@ jobs:
       - name: Generate AI failure dashboard
         if: always()
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: npm run report:ai
 
       - name: Upload test report
