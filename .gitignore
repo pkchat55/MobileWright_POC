@@ -4,3 +4,5 @@
 **/playwright-report/
 **/mobilewright-report/
 **/coverage/
+**/ai-dashboard/
+**/test-output.log

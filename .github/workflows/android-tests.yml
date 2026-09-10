@@ -48,8 +48,9 @@ jobs:
           emulator-options: -no-window -noaudio -no-boot-anim -gpu swiftshader_indirect
           script: |
             set +e
-            npm run test:android 2>&1 | tee test-output.log
-            test_exit_code=${PIPESTATUS[0]}
+            npm run test:android > test-output.log 2>&1
+            test_exit_code=$?
+            cat test-output.log
             mkdir -p ai-dashboard
             adb exec-out screencap -p > ai-dashboard/emulator-final-state.png || true
             exit $test_exit_code

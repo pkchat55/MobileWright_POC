@@ -86,7 +86,7 @@ for (const file of contextFiles) {
   failures.push({ name: pathName, details });
 }
 
-if (!failures.length && /\bfailed\b/i.test(output)) {
+if (!failures.length && /\b(failed|error|timeout)\b/i.test(output)) {
   failures.push({ name: 'Android test run', details: output.slice(-6000) });
 }
 
