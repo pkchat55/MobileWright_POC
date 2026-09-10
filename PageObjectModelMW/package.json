@@ -4,6 +4,7 @@
   "description": "Mobile automation tests with MobileWright",
   "scripts": {
     "test": "mobilewright test",
+    "test:android": "mobilewright test tests/login.test.ts",
     "test:report": "mobilewright test --reporter html && mobilewright show-report"
   },
   "devDependencies": {
